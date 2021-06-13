@@ -11,6 +11,7 @@ export default {
 
 		onSave() {
 			this.onChangeEditingStatus(false)
+			this.$emit('onChangeToggleStatus', false)
 		},
 
 		onChangeEditingStatus(bool) {

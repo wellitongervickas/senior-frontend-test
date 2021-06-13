@@ -47,6 +47,7 @@ export default {
 		<office-actions
 			v-if="toggleStatus"
 			:is-editing="editingStatus"
+			@onChangeToggleStatus="onChangeToggleStatus"
 			@onChangeEditingStatus="onChangeEditingStatus"
 		/>
 	</div>

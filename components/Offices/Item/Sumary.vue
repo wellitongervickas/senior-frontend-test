@@ -21,39 +21,42 @@ export default {
 	computed: {
 		sumaryClasses() {
 			const classes = ['office-sumary']
-			if (this.isOpened) classes.push('office-sumary--opened')
+			if (this.isOpened) return [...classes, 'office-sumary--opened']
 
 			return classes
 		},
-		sumaryTitle() {
-			return this.isEditing ? 'Edit location' : this.details.title
-		},
-		sumaryTitleClass() {
-			const classes = ['font-bold']
-			if (!this.isEditing) classes.push('text-xl')
 
-			return classes
+		sumaryTitleClasses() {
+			if (this.isEditing) return [];
+			return ['text-xl', 'font-bold']
 		},
+
 		sumaryIcon() {
 			return this.isEditing ? 'times' : 'chevron-up'
-		}
+		},
 	}
 }
 </script>
 
 <template>
-	<div
-		:class="sumaryClasses"
-		@click="onToggle"
-	>
+	<div :class="sumaryClasses">
 		<div class="office-sumary-heading">
-			<h3 :class="sumaryTitleClass">
-				{{sumaryTitle}}
+			<legend
+				v-if="isEditing"
+				class="font-bold"
+			>
+				Edit location
+			</legend>
+			<h3 :class="sumaryTitleClasses">
+				{{details.title}}
 			</h3>
-			<p v-if="!isEditing">{{details.address}}</p>
+			<p>
+				{{details.address}}
+			</p>
 		</div>
 		<div
 			class="office-sumary-icon"
+			@click="onToggle"
 		>
 			<font-awesome-icon :icon="sumaryIcon" />
 		</div>
