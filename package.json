@@ -7,7 +7,10 @@
     "start": "nuxt start"
   },
   "dependencies": {
-    "nuxt": "^2.14.6",
-    "tailwindcss": "^1.8.10"
+    "nuxt": "^2.15.6",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^4.1.3"
   }
 }
