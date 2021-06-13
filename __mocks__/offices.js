@@ -13,7 +13,7 @@ export default {
 			full_name: "Kenneth Makali",
 			job_position: "Software engineer",
 			email: "jdoesj@gmail.en",
-			phonenumber: "5148825288"
+			phone: "5148825288"
 		}
 	}
 };

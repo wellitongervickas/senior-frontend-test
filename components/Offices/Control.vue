@@ -12,12 +12,17 @@ export default {
 	}),
 	methods: {
 		onDelete(id) {
-			this.offices = Object.keys(this.offices).reduce((acc, curr) => {
-				if (curr === id) return acc;
-				acc[curr] = this.offices[curr]
+			const newOffices = { ...this.offices }
+			delete newOffices[id];
 
-				return acc;
-			}, {})
+			this.offices = newOffices
+		},
+
+		onChange(office) {
+			this.offices = {
+				...this.offices,
+				[office.id]: office
+			};
 		}
 	},
 	computed: {
@@ -40,6 +45,7 @@ export default {
 				:key="office.id"
 				:office="office"
 				@onDelete="onDelete(office.id)"
+				@onChange="onChange"
 			/>
 		</div>
 	</div>

@@ -9,10 +9,10 @@ export default {
 </script>
 
 <template>
-  	<div>
+	<div>
 		<h1>Offices</h1>
 		<offices />
-  	</div>
+	</div>
 </template>
 
 <style></style>

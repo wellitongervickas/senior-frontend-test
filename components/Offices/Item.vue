@@ -1,11 +1,12 @@
 <script>
-import OfficeDetails from '@/components/Offices/Item/Details'
+import OfficeContact from '@/components/Offices/Item/Contact'
 import OfficeSumary from '@/components/Offices/Item/Sumary'
+import getFormValues from '@/components/Offices/utils/getFormValues'
 
 export default {
 	name: 'OfficesItem',
 	components: {
-		OfficeDetails,
+		OfficeContact,
 		OfficeSumary,
 	},
 	props: {
@@ -24,13 +25,37 @@ export default {
 			this.isEditing = bool
 		},
 
-		onSave() {
+		onChange(office) {
 			this.onChangeEditingStatus(false)
 			this.onChangeToggleStatus(false)
+
+			this.$emit('onChange', office)
 		},
 
-		onSubmit(e) {
-			console.log('ola')
+		onSubmit(event) {
+			const {
+				title,
+				address,
+				full_name,
+				job_position,
+				email,
+				phone
+			} = getFormValues(event)
+
+
+			this.onChange({
+				...this.office,
+				details: {
+					title,
+					address
+				},
+				contact: {
+					full_name,
+					job_position,
+					email,
+					phone
+				}
+			})
 		},
 
 		onDelete() {
@@ -52,9 +77,10 @@ export default {
 
 		/>
 		<template v-if="isToggled">
-			<office-details
-				:is-editing="isEditing"
+			<office-contact
+				:id="office.id"
 				:contact="office.contact"
+				:is-editing="isEditing"
 			/>
 			<div class="office-actions">
 				<template v-if="!isEditing">
