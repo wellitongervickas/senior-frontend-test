@@ -6,15 +6,15 @@ export default {
 	},
 	methods: {
 		onEdit() {
-			this.onUpdateEditingStatus(true)
+			this.onChangeEditingStatus(true)
 		},
 
 		onSave() {
-			this.onUpdateEditingStatus(false)
+			this.onChangeEditingStatus(false)
 		},
 
-		onUpdateEditingStatus(bool) {
-			this.$emit('click', bool)
+		onChangeEditingStatus(bool) {
+			this.$emit('onChangeEditingStatus', bool)
 		}
 	}
 }

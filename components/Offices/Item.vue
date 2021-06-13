@@ -35,7 +35,9 @@ export default {
 			:details="office.details"
 			:is-editing="editingStatus"
 			:is-opened="toggleStatus"
-			@click="onChangeToggleStatus"
+			@onChangeToggleStatus="onChangeToggleStatus"
+			@onChangeEditingStatus="onChangeEditingStatus"
+
 		/>
 		<office-details
 			v-if="toggleStatus"
@@ -45,7 +47,7 @@ export default {
 		<office-actions
 			v-if="toggleStatus"
 			:is-editing="editingStatus"
-			@click="onChangeEditingStatus"
+			@onChangeEditingStatus="onChangeEditingStatus"
 		/>
 	</div>
 </template>

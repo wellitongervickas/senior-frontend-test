@@ -12,8 +12,10 @@ export default {
 		isEditing: Boolean
 	},
 	methods: {
-		handleChangeOpenedStatus() {
-			this.$emit('click', !this.$props.isOpened)
+		onToggle() {
+			if (this.isEditing) this.$emit('onChangeEditingStatus', !this.isEditing)
+
+			this.$emit('onChangeToggleStatus', !this.$props.isOpened)
 		}
 	},
 	computed: {
@@ -23,34 +25,37 @@ export default {
 
 			return classes
 		},
+		sumaryTitle() {
+			return this.isEditing ? 'Edit location' : this.details.title
+		},
+		sumaryTitleClass() {
+			const classes = ['font-bold']
+			if (!this.isEditing) classes.push('text-xl')
+
+			return classes
+		},
+		sumaryIcon() {
+			return this.isEditing ? 'times' : 'chevron-up'
+		}
 	}
 }
 </script>
 
 <template>
-	<div :class="sumaryClasses">
-		<div
-			v-if="isEditing"
-			@click="handleChangeOpenedStatus"
-		>
-			<div class="office-sumary-heading">
-				<h3 class="font-bold">Edit location</h3>
-			</div>
-			<div class="office-sumary-icon">
-				<font-awesome-icon icon="times" />
-			</div>
+	<div
+		:class="sumaryClasses"
+		@click="onToggle"
+	>
+		<div class="office-sumary-heading">
+			<h3 :class="sumaryTitleClass">
+				{{sumaryTitle}}
+			</h3>
+			<p v-if="!isEditing">{{details.address}}</p>
 		</div>
 		<div
-			v-if="!isEditing"
-			@click="handleChangeOpenedStatus"
+			class="office-sumary-icon"
 		>
-			<div class="office-sumary-heading">
-				<h3 class="text-xl font-bold">{{details.title}}</h3>
-				<div>{{details.address}}</div>
-			</div>
-			<div class="office-sumary-icon">
-				<font-awesome-icon icon="chevron-up" />
-			</div>
+			<font-awesome-icon :icon="sumaryIcon" />
 		</div>
 	</div>
 </template>
