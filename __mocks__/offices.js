@@ -1,6 +1,10 @@
-export default [
-	{
-		id: 1,
+import { v4 as uuid } from "uuid";
+
+const defaultId = uuid().slice(0, 10);
+
+export default {
+	[defaultId]: {
+		id: defaultId,
 		details: {
 			title: "Headquarters",
 			address: "3763 W. Dallas St."
@@ -11,18 +15,5 @@ export default [
 			email: "jdoesj@gmail.en",
 			phonenumber: "5148825288"
 		}
-	},
-	{
-		id: 2,
-		details: {
-			title: "Canadian Society",
-			address: "3780 Saint-Patrick St., Montreal"
-		},
-		contact: {
-			full_name: "Dan brovisk",
-			job_position: "Data analyst",
-			email: "dan.brovisk2@gmail.en",
-			phonenumber: "5146000726"
-		}
 	}
-];
+};

@@ -1,7 +1,6 @@
 <script>
 import OfficeItem from '@/components/Offices/Item'
-import { v4 as uuid } from 'uuid'
-import officesList from '@/__mocks__/offices'
+import officesMap from '@/__mocks__/offices'
 
 export default {
 	name: 'Offices',
@@ -9,18 +8,38 @@ export default {
 		OfficeItem,
 	},
 	data: () => ({
-		offices: [...officesList]
+		offices: {...officesMap}
 	}),
+	methods: {
+		onDelete(id) {
+			this.offices = Object.keys(this.offices).reduce((acc, curr) => {
+				if (curr === id) return acc;
+				acc[curr] = this.offices[curr]
+
+				return acc;
+			}, {})
+		}
+	},
+	computed: {
+		officesList() {
+			return Object.values(this.offices)
+		}
+	}
 }
 </script>
 
 <template>
 	<div class="offices">
 		<div class="office">
+			<template v-if="!officesList.length">
+				No offices to show!
+			</template>
 			<office-item
-				v-for="office in offices"
+				v-else
+				v-for="office in officesList"
 				:key="office.id"
 				:office="office"
+				@onDelete="onDelete(office.id)"
 			/>
 		</div>
 	</div>

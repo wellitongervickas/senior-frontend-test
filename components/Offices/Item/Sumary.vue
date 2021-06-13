@@ -1,27 +1,39 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import FieldInput from '@/components/Form/Field/Input'
 
 export default {
 	name: 'OfficeSumary',
 	components: {
 		FontAwesomeIcon,
+		FieldInput,
 	},
 	props: {
+		id: String,
 		details: Object,
-		isOpened: Boolean,
+		isToggled: Boolean,
 		isEditing: Boolean
 	},
 	methods: {
-		onToggle() {
-			if (this.isEditing) this.$emit('onChangeEditingStatus', !this.isEditing)
+		onChangeToggleStatus() {
+			this.$emit('onChangeToggleStatus', !this.$props.isToggled)
+		},
 
-			this.$emit('onChangeToggleStatus', !this.$props.isOpened)
-		}
+
+		handleChangeToggleStatus() {
+			if (this.isEditing) this.$emit('onChangeEditingStatus', !this.isEditing)
+			this.onChangeToggleStatus();
+		},
+
+
+		handleHeadingAction() {
+			if (!this.isEditing) this.onChangeToggleStatus();
+		},
 	},
 	computed: {
 		sumaryClasses() {
 			const classes = ['office-sumary']
-			if (this.isOpened) return [...classes, 'office-sumary--opened']
+			if (this.isToggled) return [...classes, 'office-sumary--opened']
 
 			return classes
 		},
@@ -34,29 +46,57 @@ export default {
 		sumaryIcon() {
 			return this.isEditing ? 'times' : 'chevron-up'
 		},
+
+		sumaryFields() {
+			const { id, details } = this;
+
+			return {
+				title: {
+					id: `${id}-title`,
+					value: details.title,
+					label: 'Title'
+				},
+				address: {
+					id: `${id}-address`,
+					value: details.address,
+					label: 'Enter the address'
+				}
+			}
+		}
 	}
 }
 </script>
 
 <template>
 	<div :class="sumaryClasses">
-		<div class="office-sumary-heading">
-			<legend
-				v-if="isEditing"
-				class="font-bold"
-			>
+		<div
+			class="office-sumary-heading"
+			@click="handleHeadingAction"
+		>
+			<h3 v-if="isEditing" :class="sumaryTitleClasses">
 				Edit location
-			</legend>
-			<h3 :class="sumaryTitleClasses">
-				{{details.title}}
 			</h3>
-			<p>
-				{{details.address}}
-			</p>
+			<field-input
+				:class="sumaryTitleClasses"
+				:readOnly="!isEditing"
+				:field="sumaryFields.title"
+			>
+				<h3 :class="sumaryTitleClasses">
+					{{details.title}}
+				</h3>
+			</field-input>
+			<field-input
+				:readOnly="!isEditing"
+				:field="sumaryFields.address"
+			>
+				<p class="office-sumary-address">
+					{{details.address}}
+				</p>
+			</field-input>
 		</div>
 		<div
 			class="office-sumary-icon"
-			@click="onToggle"
+			@click="handleChangeToggleStatus"
 		>
 			<font-awesome-icon :icon="sumaryIcon" />
 		</div>
