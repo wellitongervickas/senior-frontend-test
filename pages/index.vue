@@ -1,22 +1,17 @@
 <script>
 import Offices from '@/components/Offices/Control'
-import officesList from '@/__mocks__/offices'
-
 export default {
 	name: 'Index',
 	components: {
 		Offices
 	},
-	data: () => ({
-		offices: [...officesList]
-	})
 }
 </script>
 
 <template>
   	<div>
 		<h1>Offices</h1>
-		<offices :offices="offices" />
+		<offices />
   	</div>
 </template>
 
