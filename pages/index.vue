@@ -1,5 +1,5 @@
 <script>
-import Offices from '@/components/Offices/OfficesControl'
+import Offices from '@/components/Offices/Control'
 import officesList from '@/__mocks__/offices'
 
 export default {

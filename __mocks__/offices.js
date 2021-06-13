@@ -8,8 +8,8 @@ export default [
 		contact: {
 			full_name: "Kenneth Makali",
 			job_position: "Software engineer",
-			email_address: "jdoesj@gmail.en",
-			phone_number: "5148825288"
+			email: "jdoesj@gmail.en",
+			phonenumber: "5148825288"
 		}
 	},
 	{
@@ -21,8 +21,8 @@ export default [
 		contact: {
 			full_name: "Dan brovisk",
 			job_position: "Data analyst",
-			email_address: "dan.brovisk2@gmail.en",
-			phone_number: "5146000726"
+			email: "dan.brovisk2@gmail.en",
+			phonenumber: "5146000726"
 		}
 	}
 ];

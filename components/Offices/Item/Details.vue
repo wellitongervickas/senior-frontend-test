@@ -13,7 +13,7 @@ export default {
 		<div>{{contact.full_name}}</div>
 		<div>{{contact.job_position}}</div>
 		<div>{{contact.email}}</div>
-		<div>{{contact.phone_number}}</div>
+		<div>{{contact.phonenumber}}</div>
 	</div>
 </template>
 
