@@ -32,19 +32,43 @@ export default {
 	},
 	computed: {
 		sumaryClasses() {
-			const classes = ['office-sumary']
-			if (this.isToggled) return [...classes, 'office-sumary--opened']
+			const classes = ['office-sumary', 'relative', 'p-6']
+
+			if (this.isEditing) {
+				return [...classes, 'pb-0']
+			}
+
+			if (this.isToggled) {
+				return [
+					...classes,
+					'text-white',
+					'bg-gray-500',
+					'office-sumary--opened'
+				]
+			}
 
 			return classes
 		},
 
+
 		sumaryTitleClasses() {
 			if (this.isEditing) return [];
+
 			return ['text-xl', 'font-bold']
 		},
 
 		sumaryIcon() {
 			return this.isEditing ? 'times' : 'chevron-up'
+		},
+
+		sumaryIconClasses() {
+			const classes = ['office-sumary-icon']
+
+			if (this.isEditing) {
+				return [...classes, 'absolute', 'top-6', 'right-6']
+			}
+
+			return classes;
 		},
 
 		sumaryFields() {
@@ -73,7 +97,7 @@ export default {
 			class="office-sumary-heading"
 			@click="handleHeadingAction"
 		>
-			<h3 v-if="isEditing" :class="sumaryTitleClasses">
+			<h3 v-if="isEditing" class="font-bold">
 				Edit location
 			</h3>
 			<field-input
@@ -95,7 +119,7 @@ export default {
 			</field-input>
 		</div>
 		<div
-			class="office-sumary-icon"
+			:class="sumaryIconClasses"
 			@click="handleChangeToggleStatus"
 		>
 			<font-awesome-icon :icon="sumaryIcon" />
@@ -103,4 +127,8 @@ export default {
 	</div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+	.office-sumary {
+		transition: background 0.3s linear;
+	}
+</style>

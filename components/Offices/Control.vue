@@ -31,7 +31,7 @@ export default {
 		},
 
 		officeClass() {
-			return 'shadow-lg rounded-lg bg-white w-72 min-w-full p-6'
+			return ['shadow-lg','rounded-lg', 'bg-white', 'w-72', 'min-w-full', 'overflow-hidden']
 		}
 	}
 }

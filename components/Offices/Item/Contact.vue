@@ -12,6 +12,15 @@ export default {
 		isEditing: Boolean
 	},
 	computed: {
+		contactClasses() {
+			const classes = ['office-contact']
+
+			if (this.isEditing) {
+				return [...classes, 'px-6 pb-6']
+			}
+
+			return classes
+		},
 		contactFields() {
 			const { id, contact } = this;
 
@@ -43,7 +52,7 @@ export default {
 </script>
 
 <template>
-	<div>
+	<div :class="contactClasses">
 		<legend>Contact informations</legend>
 		<field-input
 			:readOnly="!isEditing"
