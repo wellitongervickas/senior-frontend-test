@@ -28,6 +28,10 @@ export default {
 	computed: {
 		officesList() {
 			return Object.values(this.offices)
+		},
+
+		officeClass() {
+			return 'shadow-lg rounded-lg bg-white w-72 min-w-full p-6'
 		}
 	}
 }
@@ -36,14 +40,17 @@ export default {
 <template>
 	<div class="offices">
 		<div class="office">
-			<template v-if="!officesList.length">
-				No offices to show!
+			<template v-if="!officesList.length" >
+				<div :class="[officeClass, 'text-center']">
+					<h4 class="text-lg">No offices to show!</h4>
+				</div>
 			</template>
 			<office-item
 				v-else
 				v-for="office in officesList"
 				:key="office.id"
 				:office="office"
+				:class="officeClass"
 				@onDelete="onDelete(office.id)"
 				@onChange="onChange"
 			/>

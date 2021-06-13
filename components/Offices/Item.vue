@@ -33,28 +33,9 @@ export default {
 		},
 
 		onSubmit(event) {
-			const {
-				title,
-				address,
-				full_name,
-				job_position,
-				email,
-				phone
-			} = getFormValues(event)
-
-
 			this.onChange({
 				...this.office,
-				details: {
-					title,
-					address
-				},
-				contact: {
-					full_name,
-					job_position,
-					email,
-					phone
-				}
+				...getFormValues(event)
 			})
 		},
 
@@ -66,7 +47,11 @@ export default {
 </script>
 
 <template>
-	<form @submit.prevent="onSubmit" class="office-item" novalidate="true">
+	<form
+		@submit.prevent="onSubmit"
+		class="office-item"
+		novalidate="true"
+	>
 		<office-sumary
 			:id="office.id"
 			:details="office.details"
