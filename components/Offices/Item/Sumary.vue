@@ -56,6 +56,10 @@ export default {
 			return this.isEditing ? 'times' : 'chevron-up'
 		},
 
+		sumaryHeadingLabel() {
+			return !this.details.title ? 'New location' : 'Edit location'
+		},
+
 		sumaryIconClasses() {
 			const classes = ['office-sumary-icon', 'transform', {
 				'rotate-180': !this.isToggled,
@@ -91,7 +95,7 @@ export default {
 	<div :class="sumaryClasses" @click="handleHeadingAction">
 		<div class="office-sumary-heading flex-1">
 			<h3 v-if="isEditing" class="font-bold pb-6">
-				Edit location
+				{{sumaryHeadingLabel}}
 			</h3>
 			<field-input
 				:readOnly="!isEditing"

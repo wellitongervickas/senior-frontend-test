@@ -21,6 +21,11 @@ export default {
 	methods: {
 		onChangeToggleStatus(bool) {
 			this.isToggled = bool;
+
+			const invalidOffice = !bool && !this.office.details.title;
+			if (invalidOffice) {
+				this.onDelete()
+			}
 		},
 
 		onChangeEditingStatus(bool) {
@@ -30,7 +35,8 @@ export default {
 		onChange(office) {
 			this.onChangeEditingStatus(false);
 			this.onChangeToggleStatus(false);
-			this.$emit('onChange', office);
+
+			this.$emit('onUpdateOffice', office);
 		},
 
 		onSubmit(event) {
@@ -41,7 +47,7 @@ export default {
 		},
 
 		onDelete() {
-			this.$emit('onDelete');
+			this.$emit('onDeleteOffice');
 		}
 	},
 	computed: {
@@ -51,6 +57,12 @@ export default {
 			if (this.isToggled) return [...classes, 'office-item--opened'];
 
 			return classes
+		}
+	},
+	mounted() {
+		if (!this.office.details.title) {
+			this.onChangeToggleStatus(true);
+			this.onChangeEditingStatus(true);
 		}
 	}
 }

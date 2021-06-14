@@ -2,6 +2,7 @@
 import OfficeItem from '@/components/Offices/Item'
 import officesMap from '@/__mocks__/offices'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import idGenerator from '@/components/Offices/utils/idGenerator'
 
 export default {
 	name: 'Offices',
@@ -13,17 +14,38 @@ export default {
 		offices: {...officesMap}
 	}),
 	methods: {
-		onDelete(id) {
+		onDeleteOffice(id) {
 			const newOffices = { ...this.offices }
 			delete newOffices[id];
 
 			this.offices = newOffices
 		},
 
-		onChange(office) {
+		onUpdateOffice(office) {
 			this.offices = {
 				...this.offices,
 				[office.id]: office
+			};
+		},
+
+		onAddNewOffice() {
+			const id = idGenerator();
+
+			this.offices = {
+				[id]: {
+					contact: {
+						full_name: '',
+						job_position: '',
+						email: '',
+						phone: ''
+					},
+					details: {
+						title: '',
+						address: ''
+					},
+					id
+				},
+				...this.offices,
 			};
 		}
 	},
@@ -42,6 +64,7 @@ export default {
 				<button
 					class="offices-add-new-button"
 					type="button"
+					@click="onAddNewOffice"
 				>
 					<span>Add New Location</span>
 					<font-awesome-icon icon="plus" />
@@ -60,9 +83,9 @@ export default {
 				v-for="office in officesList"
 				:key="office.id"
 				:office="office"
-				class="offices-content"
-				@onDelete="onDelete(office.id)"
-				@onChange="onChange"
+				class="offices-content mb-6"
+				@onDeleteOffice="onDeleteOffice(office.id)"
+				@onUpdateOffice="onUpdateOffice"
 			/>
 		</div>
 	</div>
