@@ -10,23 +10,6 @@ export default {
 			this.field.value = e.target.value
 		}
 	},
-	computed: {
-		inputClasses() {
-			return [
-				'py-2',
-				'px-4',
-				'text-sm',
-				'rounded',
-				'border',
-				'w-full',
-				'shadow-sm',
-				'focus:outline-none',
-				'focus:ring-2',
-				'focus:ring-blue-light',
-				'focus:border-transparent'
-			]
-		}
-	}
 }
 </script>
 
@@ -38,12 +21,11 @@ export default {
 		v-else
 		class="pt-3"
 	>
-		<label class="text-sm pb-1 block" :for="field.id">
+		<label :for="field.id">
 			{{ field.label }}
 		</label>
 		<input
 			type="text"
-			:class="inputClasses"
 			:ref="field.id"
 			:value="field.value"
 			:v-model="field.value"
@@ -54,4 +36,11 @@ export default {
 	</div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+	label {
+		@apply text-sm pb-1 block;
+	}
+	input {
+		@apply py-2 px-4 text-sm rounded border w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-light focus:border-transparent;
+	}
+</style>

@@ -31,21 +31,18 @@ export default {
 	computed: {
 		sumaryClasses() {
 			const classes = ['office-sumary']
+			if (this.isEditing) return [...classes, 'pb-0']
 
-			if (this.isEditing) {
-				return [...classes, 'pb-0']
-			}
-
-			if (this.isToggled) {
-				return [...classes, 'office-sumary--opened']
-			}
-
+			if (this.isToggled) return [...classes, 'office-sumary--opened']
 			return classes
 		},
 
 		sumaryTitleClasses() {
 			if (this.isEditing) return [];
-			return ['text-xl', 'font-bold']
+			const classes = ['text-xl', 'font-bold'];
+
+			if (this.isToggled) return [...classes, 'text-white'];
+			return [...classes, 'text-gray-700']
 		},
 
 		sumaryAddressClasses() {
@@ -65,8 +62,8 @@ export default {
 				'rotate-0': this.isToggled
 			}]
 
+			if (!this.isToggled) return [...classes, 'text-blue-light']
 			if (!this.isEditing) return classes;
-
 			return [...classes, 'absolute', 'top-6', 'right-6']
 		},
 
