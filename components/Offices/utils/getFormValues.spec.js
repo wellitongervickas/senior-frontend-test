@@ -1,7 +1,7 @@
 import getFormValues from "@/components/Offices/utils/getFormValues";
 
 describe("Offices utils getFormValues", () => {
-	it("returns a valid office struct", () => {
+	test("returns a valid office struct", () => {
 		const office = getFormValues({
 			target: [
 				{

@@ -15,13 +15,6 @@ export default {
 	data: () => ({
 		error: '',
 	}),
-	validations() {
-		return {
-			[this.field.id]: {
-				required: validations.blank.validate
-			}
-		}
-	},
 	methods: {
 		onChange(e) {
 			const value = e.target.value;

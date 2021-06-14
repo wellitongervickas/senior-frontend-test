@@ -1,7 +1,7 @@
 import officeGenerator from "@/components/Offices/utils/officeGenerator";
 
 describe("Offices utils officeGenerator", () => {
-	it("returns a valid office struct", () => {
+	test("returns a valid office struct", () => {
 		const office = Object.values(officeGenerator())[0];
 
 		expect(office).toMatchObject({
