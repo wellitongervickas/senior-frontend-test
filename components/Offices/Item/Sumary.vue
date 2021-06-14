@@ -20,7 +20,7 @@ export default {
 		},
 
 		handleChangeToggleStatus() {
-			if (this.isEditing) this.$emit('onChangeEditingStatus', !this.isEditing)
+			if (this.isEditing) this.$emit('onChangeEditingStatus', false)
 			this.onChangeToggleStatus();
 		},
 
@@ -31,9 +31,9 @@ export default {
 	computed: {
 		sumaryClasses() {
 			const classes = ['office-sumary']
-			if (this.isEditing) return [...classes, 'pb-0']
-
+			if (this.isEditing) return [...classes, 'pb-0', 'office-sumary--editing']
 			if (this.isToggled) return [...classes, 'office-sumary--opened']
+
 			return classes
 		},
 
@@ -61,15 +61,15 @@ export default {
 		},
 
 		sumaryIconClasses() {
-			const classes = ['office-sumary-icon', 'transform', 'text-gray-400', {
+			const classes = ['office-sumary-icon', 'transform', {
 				'rotate-180': !this.isToggled,
 				'rotate-0': this.isToggled
 			}]
 
 			if (!this.isToggled) return [...classes, 'text-blue-light']
-			if (!this.isEditing) return classes;
+			if (!this.isEditing) return [...classes, 'text-white'];
 
-			return [...classes, 'absolute', 'top-6', 'right-6']
+			return [...classes, 'absolute', 'top-6', 'right-6', 'text-gray-400']
 		},
 
 		sumaryFields() {
@@ -131,11 +131,16 @@ export default {
 		@apply cursor-pointer relative p-6 flex items-center;
 		transition: background 0.3s linear;
 
+		// &.office-sumary--editing {
+		// 	@apply cursor-auto;
+		// }
+
 		&.office-sumary--opened {
 			@apply shadow-lg text-white bg-gray-400;
 		}
 
 		.office-sumary-icon {
+			// @apply cursor-pointer;
 			transition: transform 0.5s ease-in-out;
 		}
 	}

@@ -1,7 +1,5 @@
-# Frontend Dependencies
 node_modules
+coverage
+
 .nuxt
-
-# IDE
 .idea
-
