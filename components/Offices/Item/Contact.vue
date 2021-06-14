@@ -9,11 +9,16 @@ export default {
 	props: {
 		id: String,
 		contact: Object,
+		isToggled: Boolean,
 		isEditing: Boolean
 	},
 	computed: {
 		contactClasses() {
 			const classes = ['office-contact']
+
+			if (this.isToggled) {
+				return [...classes, 'p-6', 'border-b']
+			}
 
 			if (this.isEditing) {
 				return [...classes, 'px-6 pb-6']
@@ -53,7 +58,12 @@ export default {
 
 <template>
 	<div :class="contactClasses">
-		<legend>Contact informations</legend>
+		<legend
+			v-if="isEditing"
+			class="pb-3 mb-3 border-b uppercase text-xs text-blue-light"
+		>
+			Contact informations
+		</legend>
 		<field-input
 			:readOnly="!isEditing"
 			:field="contactFields.full_name"

@@ -1,8 +1,6 @@
 <template>
-	<div class="flex justify-center">
-		<div class="mt-8">
-			<nuxt />
-		</div>
+	<div class="h-auto flex items-center">
+		<nuxt />
 	</div>
 </template>
 
@@ -13,5 +11,9 @@
 
 	body {
 		@apply bg-gray-200;
+	}
+
+	#__layout {
+		@apply grid place-items-center;
 	}
 </style>

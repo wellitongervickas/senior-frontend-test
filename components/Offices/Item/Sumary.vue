@@ -32,7 +32,14 @@ export default {
 	},
 	computed: {
 		sumaryClasses() {
-			const classes = ['office-sumary', 'relative', 'p-6']
+			const classes = [
+				'office-sumary',
+				'cursor-pointer',
+				'relative',
+				'p-6',
+				'flex',
+				'items-center'
+			]
 
 			if (this.isEditing) {
 				return [...classes, 'pb-0']
@@ -42,7 +49,7 @@ export default {
 				return [
 					...classes,
 					'text-white',
-					'bg-gray-500',
+					'bg-gray-400',
 					'office-sumary--opened'
 				]
 			}
@@ -50,11 +57,16 @@ export default {
 			return classes
 		},
 
-
 		sumaryTitleClasses() {
 			if (this.isEditing) return [];
-
 			return ['text-xl', 'font-bold']
+		},
+
+		sumaryAddressClasses() {
+			const classes = ['office-sumary-address'];
+
+			if (this.isToggled) return classes;
+			return [...classes, 'text-gray-400']
 		},
 
 		sumaryIcon() {
@@ -64,11 +76,8 @@ export default {
 		sumaryIconClasses() {
 			const classes = ['office-sumary-icon']
 
-			if (this.isEditing) {
-				return [...classes, 'absolute', 'top-6', 'right-6']
-			}
-
-			return classes;
+			if (!this.isEditing) return classes;
+			return [...classes, 'absolute', 'top-6', 'right-6']
 		},
 
 		sumaryFields() {
@@ -92,16 +101,12 @@ export default {
 </script>
 
 <template>
-	<div :class="sumaryClasses">
-		<div
-			class="office-sumary-heading"
-			@click="handleHeadingAction"
-		>
-			<h3 v-if="isEditing" class="font-bold">
+	<div :class="sumaryClasses" @click="handleHeadingAction">
+		<div class="office-sumary-heading flex-1">
+			<h3 v-if="isEditing" class="font-bold pb-6">
 				Edit location
 			</h3>
 			<field-input
-				:class="sumaryTitleClasses"
 				:readOnly="!isEditing"
 				:field="sumaryFields.title"
 			>
@@ -113,14 +118,14 @@ export default {
 				:readOnly="!isEditing"
 				:field="sumaryFields.address"
 			>
-				<p class="office-sumary-address">
+				<p :class="sumaryAddressClasses">
 					{{details.address}}
 				</p>
 			</field-input>
 		</div>
 		<div
 			:class="sumaryIconClasses"
-			@click="handleChangeToggleStatus"
+			@click.stop="handleChangeToggleStatus"
 		>
 			<font-awesome-icon :icon="sumaryIcon" />
 		</div>
@@ -130,5 +135,6 @@ export default {
 <style lang="scss" scoped>
 	.office-sumary {
 		transition: background 0.3s linear;
+
 	}
 </style>
