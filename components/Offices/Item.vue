@@ -72,24 +72,24 @@ export default {
 			/>
 			<div
 				key="actions"
-				class="office-actions py-3 px-6 flex justify-between"
+				class="office-actions p-6 flex justify-between"
 			>
 				<template v-if="!isEditing">
 					<button
-						class="text-gray-400 uppercase text-xs"
+						class="text-gray-400 text-lg"
 						type="button"
 						@click="onChangeEditingStatus(true)"
 					>
 						<font-awesome-icon icon="pencil-alt"  />
-						<span>Edit</span>
+						<span class="pl-1 uppercase text-xs">Edit</span>
 					</button>
 					<button
 						type="button"
-						class="text-red-400 uppercase text-xs "
+						class="text-red-400 text-lg"
 						@click="onDelete"
 					>
 						<font-awesome-icon icon="trash-alt" />
-						<span>Delete</span>
+						<span class="pl-1 uppercase text-xs">Delete</span>
 					</button>
 				</template>
 				<template v-else>

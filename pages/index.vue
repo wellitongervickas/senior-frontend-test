@@ -10,7 +10,7 @@ export default {
 
 <template>
 	<div>
-		<h1 class="text-center text-5xl mb-6 text-blue-light">
+		<h1 class="text-center text-5xl py-6 text-blue-light font-light">
 			Offices
 		</h1>
 		<offices />

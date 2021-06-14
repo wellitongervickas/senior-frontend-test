@@ -19,12 +19,10 @@ export default {
 			this.$emit('onChangeToggleStatus', !this.$props.isToggled)
 		},
 
-
 		handleChangeToggleStatus() {
 			if (this.isEditing) this.$emit('onChangeEditingStatus', !this.isEditing)
 			this.onChangeToggleStatus();
 		},
-
 
 		handleHeadingAction() {
 			if (!this.isEditing) this.onChangeToggleStatus();
@@ -48,6 +46,7 @@ export default {
 			if (this.isToggled) {
 				return [
 					...classes,
+					'shadow-lg',
 					'text-white',
 					'bg-gray-400',
 					'office-sumary--opened'
@@ -74,9 +73,13 @@ export default {
 		},
 
 		sumaryIconClasses() {
-			const classes = ['office-sumary-icon']
+			const classes = ['office-sumary-icon', 'transform', {
+				'rotate-180': !this.isToggled,
+				'rotate-0': this.isToggled
+			}]
 
 			if (!this.isEditing) return classes;
+
 			return [...classes, 'absolute', 'top-6', 'right-6']
 		},
 
@@ -136,5 +139,8 @@ export default {
 	.office-sumary {
 		transition: background 0.3s linear;
 
+		.office-sumary-icon {
+			transition: transform 0.5s ease-in-out;
+		}
 	}
 </style>

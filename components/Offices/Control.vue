@@ -47,7 +47,7 @@ export default {
 </script>
 
 <template>
-	<div class="offices">
+	<div class="offices my-6">
 		<div class="office">
 			<template v-if="!officesList.length" >
 				<div :class="[officeClass, 'text-center', 'p-6', 'text-gray-400']">

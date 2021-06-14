@@ -68,7 +68,7 @@ export default {
 			:readOnly="!isEditing"
 			:field="contactFields.full_name"
 		>
-			<h4>
+			<h4 class="py-1 font-bold text-lg">
 				{{contact.full_name}}
 			</h4>
 		</field-input>
@@ -76,25 +76,25 @@ export default {
 			:readOnly="!isEditing"
 			:field="contactFields.job_position"
 		>
-			<h4>
+			<p class="py-1">
 				{{contact.job_position}}
-			</h4>
+			</p>
 		</field-input>
 		<field-input
 			:readOnly="!isEditing"
 			:field="contactFields.email"
 		>
-			<h4>
+			<p class="py-1 text-blue-light">
 				{{contact.email}}
-			</h4>
+			</p>
 		</field-input>
 		<field-input
 			:readOnly="!isEditing"
 			:field="contactFields.phone"
 		>
-			<h4>
+			<p class="py-1">
 				{{contact.phone}}
-			</h4>
+			</p>
 		</field-input>
 	</div>
 </template>
