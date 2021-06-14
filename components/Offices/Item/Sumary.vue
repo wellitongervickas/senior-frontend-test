@@ -61,13 +61,14 @@ export default {
 		},
 
 		sumaryIconClasses() {
-			const classes = ['office-sumary-icon', 'transform', {
+			const classes = ['office-sumary-icon', 'transform', 'text-gray-400', {
 				'rotate-180': !this.isToggled,
 				'rotate-0': this.isToggled
 			}]
 
 			if (!this.isToggled) return [...classes, 'text-blue-light']
 			if (!this.isEditing) return classes;
+
 			return [...classes, 'absolute', 'top-6', 'right-6']
 		},
 
@@ -102,6 +103,7 @@ export default {
 			<field-input
 				:readOnly="!isEditing"
 				:field="sumaryFields.title"
+				ref="title"
 			>
 				<h3 :class="sumaryTitleClasses">
 					{{details.title}}
@@ -110,6 +112,7 @@ export default {
 			<field-input
 				:readOnly="!isEditing"
 				:field="sumaryFields.address"
+				ref="address"
 			>
 				<p :class="sumaryAddressClasses">
 					{{details.address}}

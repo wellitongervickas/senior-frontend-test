@@ -7,6 +7,7 @@ export default {
 	components: {
 		FontAwesomeIcon,
 	},
+	inject: ['setFormErrors'],
 	props: {
 		field: Object,
 		readOnly: Boolean
@@ -27,14 +28,23 @@ export default {
 
 			this.onValidate(value);
 			this.field.value = value
+
+			this.$emit('change', value);
 		},
 
-		onValidate(value) {
+		onValidate(value, skipMessage) {
 			const error = this.field.rules.find((rule) =>
 				validations[rule].validate(value)
 			)
 
-			this.error = validations[error]?.message;
+			if (!skipMessage) {
+				this.error = validations[error]?.message;
+			}
+
+			this.setFormErrors({
+				[this.field.id]: error
+			})
+
 			return error;
     },
 	},
@@ -54,6 +64,9 @@ export default {
 			return classes;
 		}
 	},
+	mounted() {
+		this.onValidate(this.field.value, true)
+	}
 }
 </script>
 

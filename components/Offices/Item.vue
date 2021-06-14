@@ -17,9 +17,14 @@ export default {
 	data: () => ({
 		isToggled: false,
 		isEditing: false,
-		formValidityStatus: false,
+		formErrors: {},
 	}),
-	validations: {},
+	provide() {
+		return {
+			formErrors: this.formErrors,
+			setFormErrors: this.setFormErrors
+		}
+	},
 	methods: {
 		onChangeToggleStatus(bool) {
 			this.isToggled = bool;
@@ -52,8 +57,11 @@ export default {
 			this.$emit('onDeleteOffice');
 		},
 
-		setFormValidityStatus(bool) {
-			this.formValidityStatus = bool
+		setFormErrors(error) {
+			this.formErrors = {
+				...this.formErrors,
+				...error
+			}
 		}
 	},
 	computed: {
@@ -68,12 +76,16 @@ export default {
 		officeSaveButtonClasses() {
 			const classes = ['py-2', 'px-4', 'rounded', 'text-white']
 
-			if (!this.formValidityStatus) {
+			if (this.isDisabled) {
 				return [...classes, 'bg-gray-200 text-gray-600', 'cursor-auto']
 			}
 
 			return [...classes,, 'bg-blue-light', 'cursor-pointer'];
 		},
+
+		isDisabled() {
+			return Object.values(this.formErrors).some(error => !!error);
+		}
 	},
 	mounted() {
 		if (!this.office.details.title) {
@@ -129,7 +141,7 @@ export default {
 				<button
 					v-else
 					:class="officeSaveButtonClasses"
-					:disabled="!formValidityStatus"
+					:disabled="isDisabled"
 					type="submit"
 				>
 					Save
@@ -143,7 +155,7 @@ export default {
 		transition: height .5s;
 
 		&.office-item--opened {
-			height: 22rem;
+			height: 21.5rem;
 		}
 
 		&.office-item--editing {
