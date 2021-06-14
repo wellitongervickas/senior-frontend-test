@@ -1,13 +1,57 @@
 <script>
+import * as validations from '@/components/Form/validations'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 export default {
 	name: 'FieldInput',
+	components: {
+		FontAwesomeIcon,
+	},
 	props: {
 		field: Object,
 		readOnly: Boolean
 	},
+	data: () => ({
+		error: '',
+	}),
+	validations() {
+		return {
+			[this.field.id]: {
+				required: validations.blank.validate
+			}
+		}
+	},
 	methods: {
 		onChange(e) {
-			this.field.value = e.target.value
+			const value = e.target.value;
+
+			this.onValidate(value);
+			this.field.value = value
+		},
+
+		onValidate(value) {
+			const error = this.field.rules.find((rule) =>
+				validations[rule].validate(value)
+			)
+
+			this.error = validations[error]?.message;
+			return error;
+    },
+	},
+	computed: {
+		type() {
+			return this.field.type || 'text'
+		},
+
+		required() {
+      return this.field.rules.includes('blank')
+    },
+
+		fieldClasses() {
+			const classes = ['field-input-control']
+			if (!!this.error) return [...classes, 'field-input-control--error'];
+
+			return classes;
 		}
 	},
 }
@@ -15,32 +59,53 @@ export default {
 
 <template>
 	<div v-if="readOnly">
-		<slot></slot>
+		<slot />
 	</div>
 	<div
 		v-else
-		class="pt-3"
+		class="field-input pt-3 relative"
 	>
-		<label :for="field.id">
+		<label class="field-input-label" :for="field.id">
 			{{ field.label }}
+			<span v-if="required">*</span>
 		</label>
 		<input
-			type="text"
-			:ref="field.id"
+			:class="fieldClasses"
+			:type="type"
 			:value="field.value"
 			:v-model="field.value"
 			:id="field.id"
 			:name="field.id"
-			@change="onChange"
+			:required="required"
+			@input="onChange"
 		/>
+		<div
+			v-if="!!error"
+			class="field-input-exclamation text-red-400 absolute top-10 right-4"
+		>
+			<font-awesome-icon icon="exclamation-circle" />
+		</div>
+		<div
+			v-if="!!error"
+			class="text-red-400 text-xs pt-2"
+		>
+			{{error}}
+		</div>
 	</div>
 </template>
 
 <style lang="scss" scoped>
-	label {
-		@apply text-sm pb-1 block;
-	}
-	input {
-		@apply py-2 px-4 text-sm rounded border w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-light focus:border-transparent;
+	.field-input {
+		.field-input-label {
+			@apply text-sm pb-1 block;
+		}
+
+		.field-input-control {
+			@apply py-2 px-4 text-sm rounded border w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-light focus:border-transparent;
+
+			&--error {
+				@apply focus:ring-red-400 border-red-400;
+			}
+		}
 	}
 </style>

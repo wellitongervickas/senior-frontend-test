@@ -33,22 +33,27 @@ export default {
 				full_name: {
 					id: `${id}-full_name`,
 					value: contact.full_name,
-					label: 'Full name'
+					label: 'Full name',
+					rules: ['blank']
 				},
 				job_position: {
 					id: `${id}-job_position`,
 					value: contact.job_position,
-					label: 'Job position'
+					label: 'Job position',
+					rules: ['blank']
 				},
 				email: {
 					id: `${id}-email`,
 					value: contact.email,
-					label: 'Email'
+					label: 'Email',
+					type: 'email',
+					rules: ['blank', 'email']
 				},
 				phone: {
 					id: `${id}-phone`,
 					value: contact.phone,
-					label: 'Phone'
+					label: 'Phone',
+					rules: ['blank']
 				},
 			}
 		}
@@ -65,6 +70,7 @@ export default {
 			Contact informations
 		</legend>
 		<field-input
+			ref="full_name"
 			:readOnly="!isEditing"
 			:field="contactFields.full_name"
 		>

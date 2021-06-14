@@ -2,7 +2,7 @@
 import OfficeItem from '@/components/Offices/Item'
 import officesMap from '@/__mocks__/offices'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import idGenerator from '@/components/Offices/utils/idGenerator'
+import officeGenerator from '@/components/Offices/utils/officeGenerator'
 
 export default {
 	name: 'Offices',
@@ -11,17 +11,20 @@ export default {
 		FontAwesomeIcon,
 	},
 	data: () => ({
-		offices: {...officesMap}
+		offices: {...officesMap},
+		showAddMoreButton: true,
 	}),
 	methods: {
 		onDeleteOffice(id) {
 			const newOffices = { ...this.offices }
 			delete newOffices[id];
 
+			this.showAddMoreButton = true;
 			this.offices = newOffices
 		},
 
 		onUpdateOffice(office) {
+			this.showAddMoreButton = true;
 			this.offices = {
 				...this.offices,
 				[office.id]: office
@@ -29,22 +32,9 @@ export default {
 		},
 
 		onAddNewOffice() {
-			const id = idGenerator();
-
+			this.showAddMoreButton = false;
 			this.offices = {
-				[id]: {
-					contact: {
-						full_name: '',
-						job_position: '',
-						email: '',
-						phone: ''
-					},
-					details: {
-						title: '',
-						address: ''
-					},
-					id
-				},
+				...officeGenerator(),
 				...this.offices,
 			};
 		}
@@ -60,7 +50,7 @@ export default {
 <template>
 	<div class="offices my-6">
 		<div class="office">
-			<div class="my-6">
+			<div v-if="showAddMoreButton" class="my-6">
 				<button
 					class="offices-add-new-button"
 					type="button"

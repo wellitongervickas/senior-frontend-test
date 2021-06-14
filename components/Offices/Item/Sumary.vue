@@ -78,16 +78,18 @@ export default {
 				title: {
 					id: `${id}-title`,
 					value: details.title,
-					label: 'Title'
+					label: 'Title',
+					rules: ['blank']
 				},
 				address: {
 					id: `${id}-address`,
 					value: details.address,
-					label: 'Enter the address'
+					label: 'Enter the address',
+					rules: ['blank']
 				}
 			}
 		}
-	}
+	},
 }
 </script>
 

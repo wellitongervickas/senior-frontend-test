@@ -9,7 +9,7 @@ const getFormValues = formEvent => {
 		email,
 		phone
 	} = Object.values(formEvent.target)
-		.filter(input => input.type === "text")
+		.filter(input => ["text", "email"].includes(input.type))
 		.reduce((acc, curr) => {
 			const id = getFieldId(curr);
 

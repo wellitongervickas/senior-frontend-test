@@ -17,7 +17,9 @@ export default {
 	data: () => ({
 		isToggled: false,
 		isEditing: false,
+		formValidityStatus: false,
 	}),
+	validations: {},
 	methods: {
 		onChangeToggleStatus(bool) {
 			this.isToggled = bool;
@@ -32,7 +34,7 @@ export default {
 			this.isEditing = bool;
 		},
 
-		onChange(office) {
+		onUpdate(office) {
 			this.onChangeEditingStatus(false);
 			this.onChangeToggleStatus(false);
 
@@ -40,7 +42,7 @@ export default {
 		},
 
 		onSubmit(event) {
-			this.onChange({
+			this.onUpdate({
 				...this.office,
 				...getFormValues(event)
 			});
@@ -48,6 +50,10 @@ export default {
 
 		onDelete() {
 			this.$emit('onDeleteOffice');
+		},
+
+		setFormValidityStatus(bool) {
+			this.formValidityStatus = bool
 		}
 	},
 	computed: {
@@ -57,7 +63,17 @@ export default {
 			if (this.isToggled) return [...classes, 'office-item--opened'];
 
 			return classes
-		}
+		},
+
+		officeSaveButtonClasses() {
+			const classes = ['py-2', 'px-4', 'rounded', 'text-white']
+
+			if (!this.formValidityStatus) {
+				return [...classes, 'bg-gray-200 text-gray-600', 'cursor-auto']
+			}
+
+			return [...classes,, 'bg-blue-light', 'cursor-pointer'];
+		},
 	},
 	mounted() {
 		if (!this.office.details.title) {
@@ -75,6 +91,7 @@ export default {
 		novalidate="true"
 	>
 		<office-sumary
+			ref="details"
 			:id="office.id"
 			:details="office.details"
 			:is-editing="isEditing"
@@ -84,14 +101,13 @@ export default {
 		/>
 		<div v-show="isToggled" key="details">
 			<office-contact
+				ref="contact"
 				:id="office.id"
 				:contact="office.contact"
 				:is-toggled="isToggled"
 				:is-editing="isEditing"
 			/>
-			<div
-				class="office-actions py-4 px-6 flex justify-between"
-			>
+			<div class="office-actions py-4 px-6 flex justify-between">
 				<button
 					v-if="!isEditing"
 					class="text-gray-400 text-lg focus:outline-none"
@@ -110,12 +126,14 @@ export default {
 					<font-awesome-icon icon="trash-alt" />
 					<span class="pl-1 uppercase text-xs">Delete</span>
 				</button>
-				<input
+				<button
 					v-else
-					class="bg-blue-light py-2 px-4 rounded cursor-pointer	text-white"
+					:class="officeSaveButtonClasses"
+					:disabled="!formValidityStatus"
 					type="submit"
-					value="Save"
-				/>
+				>
+					Save
+				</button>
 			</div>
 		</div>
 	</form>

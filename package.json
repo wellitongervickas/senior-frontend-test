@@ -10,7 +10,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "nuxt": "^2.15.6",
     "nuxt-fontawesome": "^0.4.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "vuelidate": "^0.7.6"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^4.1.3",
