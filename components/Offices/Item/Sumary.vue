@@ -97,13 +97,12 @@ export default {
 <template>
 	<div :class="sumaryClasses" @click="handleHeadingAction">
 		<div class="office-sumary-heading flex-1">
-			<h3 v-if="isEditing" class="font-bold pb-6">
+			<legend v-if="isEditing" class="font-bold pb-6">
 				{{sumaryHeadingLabel}}
-			</h3>
+			</legend>
 			<field-input
 				:readOnly="!isEditing"
 				:field="sumaryFields.title"
-				ref="title"
 			>
 				<h3 :class="sumaryTitleClasses">
 					{{details.title}}
@@ -112,7 +111,6 @@ export default {
 			<field-input
 				:readOnly="!isEditing"
 				:field="sumaryFields.address"
-				ref="address"
 			>
 				<p :class="sumaryAddressClasses">
 					{{details.address}}

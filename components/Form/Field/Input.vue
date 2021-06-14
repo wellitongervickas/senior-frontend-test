@@ -32,12 +32,12 @@ export default {
 			this.$emit('change', value);
 		},
 
-		onValidate(value, skipMessage) {
+		onValidate(value, options = {}) {
 			const error = this.field.rules.find((rule) =>
 				validations[rule].validate(value)
 			)
 
-			if (!skipMessage) {
+			if (!options?.skipMessage) {
 				this.error = validations[error]?.message;
 			}
 
@@ -65,7 +65,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.onValidate(this.field.value, true)
+		this.onValidate(this.field.value, { skipMessage: true })
 	}
 }
 </script>
@@ -74,10 +74,7 @@ export default {
 	<div v-if="readOnly">
 		<slot />
 	</div>
-	<div
-		v-else
-		class="field-input pt-3 relative"
-	>
+	<div v-else class="field-input pt-3 relative">
 		<label class="field-input-label" :for="field.id">
 			{{ field.label }}
 			<span v-if="required">*</span>
@@ -86,10 +83,10 @@ export default {
 			:class="fieldClasses"
 			:type="type"
 			:value="field.value"
-			:v-model="field.value"
 			:id="field.id"
 			:name="field.id"
 			:required="required"
+			:pattern="field.pattern"
 			@input="onChange"
 		/>
 		<div

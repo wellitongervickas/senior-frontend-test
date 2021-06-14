@@ -53,7 +53,7 @@ export default {
 					id: `${id}-phone`,
 					value: contact.phone,
 					label: 'Phone',
-					rules: ['blank']
+					rules: ['blank', 'phone']
 				},
 			}
 		}
