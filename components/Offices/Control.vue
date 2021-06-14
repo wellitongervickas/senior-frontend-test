@@ -31,17 +31,6 @@ export default {
 		officesList() {
 			return Object.values(this.offices)
 		},
-
-		officeClass() {
-			return [
-				'shadow-lg',
-				'rounded-lg',
-				'bg-white',
-				'w-72',
-				'min-w-full',
-				'overflow-hidden'
-			]
-		}
 	}
 }
 </script>
@@ -49,8 +38,17 @@ export default {
 <template>
 	<div class="offices my-6">
 		<div class="office">
+			<div class="my-6">
+				<button
+					class="offices-add-new-button"
+					type="button"
+				>
+					<span>Add New Location</span>
+					<font-awesome-icon icon="plus" />
+				</button>
+			</div>
 			<template v-if="!officesList.length" >
-				<div :class="[officeClass, 'text-center', 'p-6', 'text-gray-400']">
+				<div class="offices-content offices-content--empty">
 					<font-awesome-icon icon="frown" class="text-4xl" />
 					<h4 class="text-lg">
 						No offices to show!
@@ -62,12 +60,25 @@ export default {
 				v-for="office in officesList"
 				:key="office.id"
 				:office="office"
-				:class="officeClass"
+				class="offices-content"
 				@onDelete="onDelete(office.id)"
 				@onChange="onChange"
 			/>
 		</div>
 	</div>
 </template>
+<style lang="scss" scoped>
+	.offices {
+		.offices-content {
+			@apply shadow-lg rounded-lg bg-white w-72 min-w-full overflow-hidden;
 
-<style></style>
+			&.offices-content--empty {
+				@apply text-center p-6 text-gray-400;
+			}
+		}
+
+		.offices-add-new-button {
+			@apply w-full bg-blue-light text-base text-white rounded-lg py-4 px-6 flex justify-between  items-center focus:outline-none
+		}
+	}
+</style>

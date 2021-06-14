@@ -30,27 +30,14 @@ export default {
 	},
 	computed: {
 		sumaryClasses() {
-			const classes = [
-				'office-sumary',
-				'cursor-pointer',
-				'relative',
-				'p-6',
-				'flex',
-				'items-center'
-			]
+			const classes = ['office-sumary']
 
 			if (this.isEditing) {
 				return [...classes, 'pb-0']
 			}
 
 			if (this.isToggled) {
-				return [
-					...classes,
-					'shadow-lg',
-					'text-white',
-					'bg-gray-400',
-					'office-sumary--opened'
-				]
+				return [...classes, 'office-sumary--opened']
 			}
 
 			return classes
@@ -137,7 +124,12 @@ export default {
 
 <style lang="scss" scoped>
 	.office-sumary {
+		@apply cursor-pointer relative p-6 flex items-center;
 		transition: background 0.3s linear;
+
+		&.office-sumary--opened {
+			@apply shadow-lg text-white bg-gray-400;
+		}
 
 		.office-sumary-icon {
 			transition: transform 0.5s ease-in-out;
